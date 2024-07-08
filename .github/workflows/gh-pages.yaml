@@ -10,15 +10,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Use Node.js 16.20.2
-        run: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 16.20.2
-      
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v2
         env:
