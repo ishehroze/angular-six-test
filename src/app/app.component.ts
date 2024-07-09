@@ -9,30 +9,40 @@ export class AppComponent {
   title = 'angular-six-test';
 }
 
+class Person {
+  name: String;
+  hidden: Boolean;
+
+  constructor(name: String) {
+    this.name = name;
+    this.hidden = true;
+  }
+
+  toggle() {
+    this.hidden = !this.hidden;
+  }
+}
+
 @Component({
   selector: 'app-root',
   template: `
   <ol>
     <li *ngFor="let person of people">
-      <a [hidden]="!person.hidden" (click)="toggle(person)" style="color: blue">Show</a>
-      <span [hidden]="person.hidden" (click)="toggle(person)">{{ person.name }}</span></li>
+      <a [hidden]="!person.hidden" (click)="person.toggle()" style="color: blue">Show</a>
+      <span [hidden]="person.hidden" (click)="person.toggle()">{{ person.name }}</span></li>
   </ol>
   `
 })
 export class LoopComponent {
-  people: Object[];
+  people: Person[];
 
   constructor() {
     this.people = [
-      {"name": "Osman", "hidden": true},
-      {"name": "Bodrul", "hidden": true},
-      {"name": "Rizvi", "hidden": true},
-      {"name": "Nayeem", "hidden": true},
-      {"name": "Rabiul", "hidden": true}
+       new Person("Osman"),
+       new Person("Bodrul"),
+       new Person("Rizvi"),
+       new Person("Nayeem"),
+       new Person("Rabiul") 
     ]
-  }
-
-  toggle(person) {
-    person.hidden = !person.hidden;
   }
 }
