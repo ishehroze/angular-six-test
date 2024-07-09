@@ -21,4 +21,11 @@ jobs:
           BASE_BRANCH: master
           BRANCH: gh-pages
           FOLDER: dist/angular-six-test
-          BUILD_SCRIPT: sudo apt-get update && sudo apt-get install jq && npm install && npm run build -- --prod
+          BUILD_SCRIPT: |
+            sed -i s/deb.debian.org\\/debian\ stretch-updates/archive.debian.org\\/debian\ stretch/g /etc/apt/sources.list
+            sed -i s/deb.debian.org\\/debian\ stretch/archive.debian.org\\/debian\ stretch/g /etc/apt/sources.list
+            sed -i s/security.debian.org\\/debian-security\ stretch/archive.debian.org\\/debian-security\ stretch/g /etc/apt/sources.list
+            sudo apt-get update
+            sudo apt-get install jq
+            npm install
+            npm run build -- --prod
