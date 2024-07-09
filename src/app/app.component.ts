@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -24,16 +24,15 @@ class Person {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'people-list',
   template: `
   <ol>
-    <li *ngFor="let person of people">
-      <a [hidden]="!person.hidden" (click)="person.toggle()" style="color: blue">Show</a>
-      <span [hidden]="person.hidden" (click)="person.toggle()">{{ person.name }}</span></li>
+    <person *ngFor="let p of people" [person]="p">
+    </person>
   </ol>
   `
 })
-export class LoopComponent {
+export class PeopleListComponent {
   people: Person[];
 
   constructor() {
@@ -45,4 +44,17 @@ export class LoopComponent {
        new Person("Rabiul") 
     ]
   }
+}
+
+@Component({
+  selector: 'person',
+  template: `
+    <li>
+      <a [hidden]="!person.hidden" (click)="person.toggle()" style="color: blue">Show</a>
+      <span [hidden]="person.hidden" (click)="person.toggle()">{{ person.name }}</span>
+    </li>
+  `
+})
+export class PersonComponent {
+  @Input('person') person: Person;
 }
