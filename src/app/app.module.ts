@@ -1,17 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent, LoopComponent } from './app.component';
+import { AppComponent, PeopleListComponent, PersonComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoopComponent
+    PeopleListComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [LoopComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
