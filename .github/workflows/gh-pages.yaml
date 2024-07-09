@@ -5,27 +5,23 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 16.20.2
         uses: actions/setup-node@v1
         with:
           node-version: 16.20.2
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_BRANCH: master
-          BRANCH: gh-pages
-          FOLDER: dist/angular-six-test
-          BUILD_SCRIPT: |
-            sed -i s/deb.debian.org\\/debian\ stretch-updates/archive.debian.org\\/debian\ stretch/g /etc/apt/sources.list
-            sed -i s/deb.debian.org\\/debian\ stretch/archive.debian.org\\/debian\ stretch/g /etc/apt/sources.list
-            sed -i s/security.debian.org\\/debian-security\ stretch/archive.debian.org\\/debian-security\ stretch/g /etc/apt/sources.list
-            sudo apt-get update
-            sudo apt-get install jq
+      - name: Install and build
+        run: |
             npm install
             npm run build -- --prod
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/angular-six-test
