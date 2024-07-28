@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent, PeopleListComponent, PersonComponent } from './app.component';
+import { AppComponent, PeopleListComponent, PersonComponent, PersonFormComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PeopleListComponent,
-    PersonComponent
+    PersonComponent,
+    PersonFormComponent
   ],
   imports: [
     BrowserModule

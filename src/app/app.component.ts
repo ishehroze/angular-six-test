@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +24,24 @@ class Person {
 }
 
 @Component({
+  selector: 'person-form',
+  template: `
+  <input placeholder="Enter Name" #nameInput>
+  <button type="button" (click)="createPerson(nameInput.value)">Save</button>;
+  `
+})
+export class PersonFormComponent {
+  @Output('personCreateEvent') personCreated = new EventEmitter<Person>();
+
+  createPerson(name:string) {
+    this.personCreated.emit(new Person(name));
+  }
+}
+
+@Component({
   selector: 'people-list',
   template: `
+  <person-form (personCreateEvent)="addPerson($event)"></person-form>
   <ol>
     <person *ngFor="let p of people" [person]="p">
     </person>
@@ -43,6 +59,10 @@ export class PeopleListComponent {
        new Person("Nayeem"),
        new Person("Rabiul") 
     ]
+  }
+
+  addPerson(person:Person) {
+    this.people.push(person);
   }
 }
 
